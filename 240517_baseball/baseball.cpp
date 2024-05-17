@@ -19,10 +19,16 @@ public:
 
     GuessResult guess(const string& guessNumber) {
         assertIllegalArgument(guessNumber);
+        checkMatch(guessNumber);
+        return { isSoved(), strikesCnt, ballCnt};
+    }
+
+    void checkMatch(const string& guessNumber)
+    {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (guessNumber[i] != question[j]) continue;
-                
+
                 if (i == j) {
                     strikesCnt++;
                 }
@@ -31,12 +37,11 @@ public:
                 }
                 continue;
             }
-        }
-        if (strikesCnt == 3) {
-            return { true, 3, 0 };
-        }
+        } 
+    }
 
-        return { false, strikesCnt, ballCnt };
+    bool isSoved() {
+        return strikesCnt == 3 ? true : false;
     }
 
     void assertIllegalArgument(const string& guessNumber) {
