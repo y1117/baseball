@@ -1,9 +1,22 @@
 ﻿#include <stdexcept>
 using namespace std;
+
+struct GuessResult {
+    bool sovled;
+    int strikes;
+    int balls;
+};
+
 class Baseball {
 public:
-    void guess(const string& guessNumber) {
+    explicit Baseball(const string& question)
+        : question(question) {
+
+    }
+
+    GuessResult guess(const string& guessNumber) {
         assertIllegalArgument(guessNumber);
+        return { true, 3,0 };
     }
 
     void assertIllegalArgument(const string& guessNumber) {
@@ -27,4 +40,6 @@ public:
             return true;
         return false;
     }
+private:
+    string question;
 };
