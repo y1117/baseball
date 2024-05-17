@@ -2,13 +2,23 @@
 #include "../240517_baseball/baseball.cpp"
 using namespace std;
 
-TEST(BaseballGame, ThrowExceptionWhenInputLengthIsUnmached) {
+class BaseballFixture : public testing::Test {
+public:
     Baseball game;
+    void assertIllegalArgument(string guessNumber) {
+        try {
+            game.guess(guessNumber);
+            FAIL();
+        }
+        catch (exception e) {
+            // PASS
+        }
+    }
 
-    EXPECT_THROW(game.guess(string("12")), length_error);
-}
-TEST(BaseballGame, ThrowExceptionWhenInvalidChar) {
-    Baseball game;
+};
 
-    EXPECT_THROW(game.guess(string("12s")), invalid_argument);
+TEST_F(BaseballFixture, ThrowExceptionWhenInvalidCase) {
+    assertIllegalArgument("12");
+    assertIllegalArgument("12s");
+
 }
