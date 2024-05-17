@@ -10,7 +10,10 @@ struct GuessResult {
 class Baseball {
 public:
     explicit Baseball(const string& question)
-        : question(question) {
+        : question(question),
+        strikesCnt{0},
+        ballCnt{0}    
+    {
 
     }
 
@@ -19,7 +22,25 @@ public:
         if (guessNumber == question) {
             return { true, 3, 0 };
         }
-        return { false, 0, 0 };
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (guessNumber[i] == question[j]) {
+                    if (i == j) {
+                        strikesCnt++;
+                    }
+                    else {
+                        ballCnt++;
+                    }
+                    continue;
+                }
+            }
+        }
+        if (strikesCnt == 3) {
+            return { true, 3, 0 };
+        }
+
+        return { false, strikesCnt, ballCnt };
     }
 
     void assertIllegalArgument(const string& guessNumber) {
@@ -45,4 +66,6 @@ public:
     }
 private:
     string question;
+    int ballCnt;
+    int strikesCnt;
 };

@@ -14,7 +14,6 @@ public:
             // PASS
         }
     }
-
 };
 
 TEST_F(BaseballFixture, ThrowExceptionWhenInvalidCase) {
@@ -27,5 +26,12 @@ TEST_F(BaseballFixture, ReturnSolvedResultIfMatchedNumber) {
 
     EXPECT_TRUE(result.sovled);
     EXPECT_EQ(3, result.strikes);
+    EXPECT_EQ(0, result.balls);
+}
+TEST_F(BaseballFixture, ReturnSolvedResult2Strikes0Ball) {
+    GuessResult result = game.guess("124");
+
+    EXPECT_FALSE(result.sovled);
+    EXPECT_EQ(2, result.strikes);
     EXPECT_EQ(0, result.balls);
 }
