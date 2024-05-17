@@ -19,21 +19,17 @@ public:
 
     GuessResult guess(const string& guessNumber) {
         assertIllegalArgument(guessNumber);
-        if (guessNumber == question) {
-            return { true, 3, 0 };
-        }
-
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (guessNumber[i] == question[j]) {
-                    if (i == j) {
-                        strikesCnt++;
-                    }
-                    else {
-                        ballCnt++;
-                    }
-                    continue;
+                if (guessNumber[i] != question[j]) continue;
+                
+                if (i == j) {
+                    strikesCnt++;
                 }
+                else {
+                    ballCnt++;
+                }
+                continue;
             }
         }
         if (strikesCnt == 3) {
